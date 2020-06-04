@@ -1,0 +1,83 @@
+ 
+#======================================================================================#
+#                                       modified by plusdm 2015                        #
+#======================================================================================#
+ 
+own_window yes
+own_window_argb_visual yes
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+ 
+# ARGB can be used for real transparency, note that a composite manager is required for real transparency
+own_window_argb_visual true
+ 
+# Set the transparency alpha value from 0 to 255
+own_window_argb_value 0
+ 
+update_interval 1                                       # this is used if system is not running on battery battery
+update_interval_on_battery 1                            # this is used if system is running on battery battery, higher value ensures that conky save battery power
+ 
+double_buffer yes
+no_buffers yes
+text_buffer_size 2048
+gap_x 249
+gap_y 500
+minimum_size 900 900
+maximum_width 860
+ 
+border_inner_margin 0
+border_outer_margin 0
+use_spacer none
+alignment tl
+ 
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+ 
+override_utf8_locale yes
+use_xft yes
+xftfont ubuntu light:size=8
+xftalpha 0.2
+uppercase no
+lua_load $HOME/.Conky_elíptico/conky_eq.lua
+lua_draw_hook_pre main_bars
+TEXT
+
+${color FFFFFF}
+${voffset 140}
+${font monospace:pixelsize=11}${color FFFFFF}
+${goto 600}${top name 1}${alignr}${top cpu 1} ${top mem 1}
+${goto 600}${top name 2}${alignr}${top cpu 2} ${top mem 2}
+${goto 600}${top name 3}${alignr}${top cpu 3} ${top mem 3}
+${goto 600}${top name 4}${alignr}${top cpu 4} ${top mem 4}
+${goto 600}${top name 5}${alignr}${top cpu 5} ${top mem 5}
+${voffset -5}${color FFFFFF}
+${goto 600}${top_mem name 1}
+${goto 600}${top_mem name 2}
+${goto 600}${top_mem name 3}
+${goto 600}${top_mem name 4}
+${goto 600}${top_mem name 5}
+
+${goto 1000}hostname: $alignr${nodename}
+${goto 600}uptime: $alignr${uptime}
+${goto 600}kernel: $alignr${Kernel}
+${goto 600}battery: $alignr${battery_percent BAT1}%
+${goto 600}temperature: $alignr${acpitemp}°C
+
+${goto 600}Wireless Essid:$alignr${wireless_essid wlp2s0}
+${goto 600}Wireless Signal:$alignr${if_up wlp2s0}${wireless_link_qual_perc wlp2s0}${else}${endif}
+${goto 600}Upload:$alignr${upspeedf wlp2s0} kbps
+${goto 600}Total Upload:$alignr${totalup wlp2s0}${color FFFFFF}
+${goto 600}Download:$alignr${downspeedf wlp2s0} kbps
+${goto 600}Total Download:$alignr${totaldown wlp2s0}
+
+${goto 600}Wireless Ip:$alignr${if_up wlp2s0}${addr wlp2s0}${else}${endif}
+${goto 600}Public Ip:$alignr${if_up wlp2s0}${execi 30 ~/.conky/scripts/ip.sh}${else}${endif}
+${goto 600}Proxy Ip:${color FFFFFF}$alignr${if_up wlp2s0}${execi 10 ~/.conky/scripts/proxy_ip.sh}${else}${endif}
+
+${voffset 40}${goto 490}cpu ${goto 524}cpu ${goto 558}ram${goto 588}swap${goto 624}home${goto 664}root${goto 700}up${goto 729}down${goto 770}wifi${goto 802}batt${goto 834}temp
+#${voffset 5}${goto 8}${color}${hr 1}
+${goto 130}${font monospace:pixelsize=30}${color 63767B}${time %H:%M} - ${execpi 300 date +%_B}
+$color${execpi 36000 $HOME/.Conky_elíptico/horical.sh}${color}
+ 
