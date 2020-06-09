@@ -4,7 +4,7 @@
 #======================================================================================#
  
 own_window yes
-own_window_argb_visual yes
+#own_window_argb_visual yes
 own_window_transparent yes
 own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
  
@@ -14,7 +14,7 @@ own_window_argb_visual true
 # Set the transparency alpha value from 0 to 255
 own_window_argb_value 0
  
-update_interval 1                                       # this is used if system is not running on battery battery
+update_interval 2                                       # this is used if system is not running on battery battery
 #update_interval_on_battery 1                            # this is used if system is running on battery battery, higher value ensures that conky save battery power
  
 double_buffer yes
@@ -37,27 +37,15 @@ draw_graph_borders no
  
 override_utf8_locale yes
 use_xft yes
-xftfont ubuntu light:size=8
+xftfont ubuntu light:size=9
 default_color white 
-xftalpha 0.2
+xftalpha 0.5
 uppercase no
 lua_load $HOME/.Conky_eliptico/conky_eq.lua
 lua_draw_hook_pre main_bars
-# Graphics settings 
-
-#draw_shades no
-#default_color cccccc
-
-color0 black
-color1 cyan
-color2 white
-color4 8de7f4
-color5 3884AC
-
-#lua_load /home/salaam/.Conky_eliptico/graph.lua
-#lua_draw_hook_pre main_graph
 
 TEXT
+
 ${voffset 140}
 ${font monospace:pixelsize=11}${color FFFFFF}
 ${goto 600}Hostname: $alignr${nodename}
@@ -78,21 +66,25 @@ ${goto 600}Games: $alignr ${fs_used_perc /mnt/Games}%
 ${goto 600}___________
 #${goto 600}battery: $alignr${battery_percent BAT1}%
 #${if_existing /sys/class/net/wlp3s0/operstate up}${alingr} Interface Wireless
-#${goto 600}${if_existing /sys/class/net/wlp3s0/operstate up}Wireless Essid:$alignr${wireless_essid wlp3s0}${endif}
-#${goto 600}${if_existing /sys/class/net/wlp3s0/operstate up}Wireless Signal:$alignr${wireless_link_qual_perc wlp3s0}${endif}
-#${goto 600}${if_existing /sys/class/net/wlp3s0/operstate up}Upload:$alignr${upspeedf wlp3s0} kbps${endif}
-#${goto 600}${if_existing /sys/class/net/wlp3s0/operstate up}Total Upload:$alignr${totalup wlp3s0}${color FFFFFF}${endif}
-#${goto 600}${if_existing /sys/class/net/wlp3s0/operstate up}Download:$alignr${downspeedf wlp3s0} kbps${endif}
-#${goto 600}${if_existing /sys/class/net/wlp3s0/operstate up}Total Download:$alignr${totaldown wlp3s0}${endif}
-#${goto 600}${if_existing /sys/class/net/wlp3s0/operstate up}Local Ip Wireless:$alignr${exec hostname -I}${endif}
+#${if_match "${addr wlp3s0}"!="No Address"}
+#${goto 600}${if_existing /sys/class/net/wlp3s0/operstate up}Wireless Essid:$alignr${wireless_essid wlp3s0}
+#${goto 600}${if_existing /sys/class/net/wlp3s0/operstate up}Wireless Signal:$alignr${wireless_link_qual_perc wlp3s0}
+#${goto 600}${if_existing /sys/class/net/wlp3s0/operstate up}Upload:$alignr${upspeedf wlp3s0} kbps
+#${goto 600}${if_existing /sys/class/net/wlp3s0/operstate up}Total Upload:$alignr${totalup wlp3s0}${color FFFFFF}
+#${goto 600}${if_existing /sys/class/net/wlp3s0/operstate up}Download:$alignr${downspeedf wlp3s0} kbps
+#${goto 600}${if_existing /sys/class/net/wlp3s0/operstate up}Total Download:$alignr${totaldown wlp3s0}
+#${goto 600}${if_existing /sys/class/net/wlp3s0/operstate up}Local Ip Wireless:$alignr${exec hostname -I}
+#${endif}
+#${if_match "${addr enp025}"!="No Address"}
 ${alignr}Interface Ethernet
-${goto 600}${if_existing /sys/class/net/enp0s25/operstate up}Upload:$alignr${upspeedf enp0s25} kbps${endif}
-${goto 600}${if_existing /sys/class/net/enp0s25/operstate up}Download:$alignr${downspeedf enp0s25} kbps${endif}
-${goto 600}${if_existing /sys/class/net/enp0s25/operstate up}Total Download:$alignr${totaldown enp0s25}${endif}
-${goto 600}${if_existing /sys/class/net/enp0s25/operstate up}Total Upload:$alignr${totalup enp0s25}${color FFFFFF}${endif}
-${goto 600}${if_existing /sys/class/net/enp0s25/operstate up}Local Ip Ethernet:$alignr${addr enp0s25}${endif}
-${goto 600}${if_existing /sys/class/net/enp0s25/operstate up}Internet IP:$alignr${execi 120 curl -s ipinfo.io/ip}${endif}
+${goto 600}${if_existing /sys/class/net/enp0s25/operstate up}Upload:$alignr${upspeedf enp0s25} kbps
+${goto 600}${if_existing /sys/class/net/enp0s25/operstate up}Download:$alignr${downspeedf enp0s25} kbps
+${goto 600}${if_existing /sys/class/net/enp0s25/operstate up}Total Download:$alignr${totaldown enp0s25}
+${goto 600}${if_existing /sys/class/net/enp0s25/operstate up}Total Upload:$alignr${totalup enp0s25}${color FFFFFF}
+${goto 600}${if_existing /sys/class/net/enp0s25/operstate up}Local Ip Ethernet:$alignr${addr enp0s25}
+${goto 600}${if_existing /sys/class/net/enp0s25/operstate up}Internet IP:$alignr${execi 120 curl -s ipinfo.io/ip}
 #${goto 600}${if_up wlp3s0}Proxy Ip:${color FFFFFF}$alignr$${execi 10 ~/.conky/scripts/proxy_ip.sh}${else}${endif}
+
 
 ${voffset 60}${goto 490}cpu ${goto 524}cpu ${goto 558}ram${goto 588}swap${goto 624}home${goto 664}root${goto 700}up${goto 729}down${goto 770}wifi${goto 802}batt${goto 834}temp
 #${voffset 5}${goto 8}${color}${hr 1}
